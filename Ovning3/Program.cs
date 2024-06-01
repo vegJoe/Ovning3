@@ -16,7 +16,13 @@ namespace Ovning3
         //14. Animal
         //3.4 9. Fel typ av objekt
         //3.4 10 Animal
+        //3.4 13 Metoden stats i respektive klass kallas och skriver ut de unika variablerna för klassen
+        //3.4 17 Metoden finns inte i animal objektet
 
+
+        /*
+         * Main class som skapar objekt och listor och sen bara kallar på metoder
+         */
         static void Main(string[] args)
         {
             PersonHandler pHandler = new PersonHandler();
@@ -25,12 +31,18 @@ namespace Ovning3
 
             animals = AddAnimals(animals);
             PrintAnimals(animals);
+            PrintDog(animals);
 
             errors = AddErrors(errors);
             CreatePerson(pHandler);
             PrintError(errors);
         }
 
+        /*
+         * Printar ut typ av objekt samt ljudet djuret gör från listan med animal obj
+         * Utifall att objektet ärver från interfacet IPerson (endast wolfman som gör i detta programmet)
+         * då type castar den objektet till Wolfman för att få åtkomst till Talk() metoden
+         */
         private static void PrintAnimals(List<Animal> animals)
         {
             foreach(Animal animal in animals)
@@ -46,6 +58,10 @@ namespace Ovning3
             }
         }
 
+        /*
+         * Tar emot en lista av Animal, lägger till djur och returnerar listan
+         */
+
         static List<Animal> AddAnimals(List<Animal> animals)
         {
             Dog dog = new Dog { Age = 3, Name = "spot", Weight = 15, HoleDiggingStat = 199};
@@ -59,6 +75,10 @@ namespace Ovning3
             return animals;
         }
 
+        /*
+         * Skapar ett Person obj genom PersonHandler klassens konstruktor. Om någon av felcheckarna i Person
+         * slår in då skickas ett exception tillbaka och skrivs ut i konsollen
+         */
         static void CreatePerson(PersonHandler pHandler)
         {
             try
@@ -86,6 +106,23 @@ namespace Ovning3
             foreach(var err in errors)
             {
                 Console.WriteLine(err.UEMessage());
+            }
+        }
+
+        /*
+         * Snarlik PrintAnimals() metoden med skillnaden att den bara kollar om objektet är en Dog, för att sedan casta om
+         * och skriva ut en unik metod i dog klassen
+         */
+
+        static void PrintDog(List<Animal> animals)
+        {
+            foreach(Animal animal in animals) 
+            {
+                if (animal is Dog)
+                {
+                    var dog = (animal as Dog);
+                    Console.WriteLine(dog!.Test());
+                }
             }
         }
     }

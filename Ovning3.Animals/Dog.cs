@@ -25,5 +25,10 @@ namespace Ovning3.Animals
             return $"{base.Stats()}, how many holes have it dugg = {HoleDiggingStat}";
 
         }
+
+        public string Test()
+        {
+            return "hello dogg";
+        }
     }
 }
